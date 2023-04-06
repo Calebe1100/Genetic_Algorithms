@@ -36,7 +36,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Individual.cs" />
     <Compile Include="Factories\NQueensIndividualFactory.cs" />
     <Compile Include="Factories\IIndividualFactory.cs" />
     <Compile Include="UseCases\FGA\Fga.cs" />
