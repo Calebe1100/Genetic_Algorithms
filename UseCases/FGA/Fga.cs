@@ -1,11 +1,7 @@
-﻿using Project_IA.Entities;
-using Project_IA.Factory;
+﻿using Project_IA.Factory;
 using Project_IA.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project_IA.FGA
 {

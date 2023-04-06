@@ -1,5 +1,4 @@
-﻿using Project_IA.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Project_IA.Interfaces
 {
