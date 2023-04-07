@@ -17,15 +17,15 @@ namespace Project_IA
             int numberPopulation = 20;
             int numberElitism = 4;
             int numberGeneration = 3;
-            IIndividualFactory<NQueen> factory = new NQueensIndividualFactory(numberElitism);
+            IIndividualFactory<NQueen> factory = new NQueensIndividualFactory(9);
 
             Fga<NQueen> fga = new Fga<NQueen>();
 
             NQueen bestIndividual = fga.Execute(factory, numberPopulation, numberElitism, numberGeneration);
 
-            Console.WriteLine(fga.ToString());
+            Console.WriteLine(bestIndividual.ToString());
             var obj = new NQueen(20);
 
         }
     }
-}
+} 

@@ -53,6 +53,7 @@ namespace Project_IA.NQueens
 
         {
             int repartialParentIndice = Random.Next(parent.Genes.Count);
+            List<NQueen> mutateChields = new List<NQueen>();
 
             if(repartialParentIndice + 3 > NumberQueens - 1)
             {
@@ -60,15 +61,18 @@ namespace Project_IA.NQueens
             }
             for (int i = 1; i < NumberQueens / 3; i++)
             {
-                this.Genes.RemoveAt(repartialParentIndice);
-                this.Genes.Add(parent.Genes[repartialParentIndice]);
+                this.Genes.Insert(repartialParentIndice, parent.Genes[repartialParentIndice]);
+                parent.Genes.Insert(repartialParentIndice, this.Genes[repartialParentIndice + 1]);
 
-                parent.Genes.Add(this.Genes[repartialParentIndice]);
+                this.Genes.RemoveAt(repartialParentIndice + 1);
+                parent.Genes.RemoveAt(repartialParentIndice + 1);
 
                 repartialParentIndice++;
                 repartialParentIndice %= NumberQueens - 1;
             }
-            return new List<NQueen>();
+            mutateChields.Add(parent);
+            mutateChields.Add(this);
+            return mutateChields;
 
         }
     }

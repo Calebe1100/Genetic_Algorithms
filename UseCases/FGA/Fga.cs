@@ -36,7 +36,7 @@ namespace Project_IA.FGA
                 //Generate bests
                 List<GenericIndividual> bestGenericIndividuals = new List<GenericIndividual>(numberGenericIndividuals);
                 bestGenericIndividuals.AddRange(this.GenerateElectism(joinInitRecombindeMutant, numberElitism));
-                bestGenericIndividuals.AddRange(this.SpinRoullete(joinInitRecombindeMutant, numberGenericIndividuals - numberElitism));
+                //bestGenericIndividuals.AddRange(this.SpinRoullete(joinInitRecombindeMutant, numberGenericIndividuals - numberElitism));
 
                 initGenericIndividuals = bestGenericIndividuals;
             }
@@ -65,7 +65,7 @@ namespace Project_IA.FGA
                 chields.AddRange(parentOne.Recombine(parentTwo));
 
             }
-            return initGenericIndividuals;
+            return chields;
         }
 
         private IEnumerable<GenericIndividual> SpinRoullete(List<GenericIndividual> joinInitRecombindeMutant, int numberElitism)
@@ -80,7 +80,15 @@ namespace Project_IA.FGA
 
         private List<GenericIndividual> GenerateMutant(List<GenericIndividual> initGenericIndividuals)
         {
-            throw new NotImplementedException();
+            List<GenericIndividual> mutants = new List<GenericIndividual>();
+
+            for (int i = 0; i < initGenericIndividuals.Count; i++)
+            {
+                GenericIndividual genericIndividual = initGenericIndividuals[i].Mutate();
+
+                mutants.Add(genericIndividual);
+            }
+            return mutants;
         }
 
 
