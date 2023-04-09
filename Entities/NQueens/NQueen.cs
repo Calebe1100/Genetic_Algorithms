@@ -1,6 +1,7 @@
 ﻿using Project_IA.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Project_IA.NQueens
 {
@@ -27,7 +28,21 @@ namespace Project_IA.NQueens
 
         public double Avaliar()
         {
-            throw new NotImplementedException();
+            int numberColision = this.Genes.Count - this.Genes.Distinct().Count();
+
+            for (int i = 0; i < NumberQueens - 2; i++)
+            {
+                for (int j =  i + 1; j < NumberQueens - 1; j++)
+                {
+                    if((Genes[j] - Math.Abs(i - j)) == Genes[i] || (Genes[j] + Math.Abs(j - i)) == Genes[i])
+                    {
+                        numberColision++;
+                    }
+                }
+
+            }
+            this.Avaliation = numberColision;
+            return numberColision;
         }
 
         NQueen IIndividual<NQueen>.Mutate()

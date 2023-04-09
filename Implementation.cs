@@ -16,7 +16,7 @@ namespace Project_IA
             double taxMutation = 0.15;
             int numberPopulation = 20;
             int numberElitism = 4;
-            int numberGeneration = 3;
+            int numberGeneration = 1000;
             IIndividualFactory<NQueen> factory = new NQueensIndividualFactory(9);
 
             Fga<NQueen> fga = new Fga<NQueen>();

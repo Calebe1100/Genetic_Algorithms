@@ -2,6 +2,7 @@
 using Project_IA.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Project_IA.FGA
 {
@@ -35,10 +36,14 @@ namespace Project_IA.FGA
 
                 //Generate bests
                 List<GenericIndividual> bestGenericIndividuals = new List<GenericIndividual>(numberGenericIndividuals);
-                bestGenericIndividuals.AddRange(this.GenerateElectism(joinInitRecombindeMutant, numberElitism));
+                bestGenericIndividuals.AddRange(this.GenerateElectism(joinInitRecombindeMutant, numberGenericIndividuals));
                 //bestGenericIndividuals.AddRange(this.SpinRoullete(joinInitRecombindeMutant, numberGenericIndividuals - numberElitism));
 
                 initGenericIndividuals = bestGenericIndividuals;
+                if(bestGenericIndividuals.Any(bgi => bgi.Avaliar() < 3))
+                {
+                    Console.WriteLine("Best Individual:" + bestGenericIndividuals.Find(bgi => bgi.Avaliar() < 3));
+                }
             }
 
             return factory.GetNewIndividual();
@@ -68,14 +73,14 @@ namespace Project_IA.FGA
             return chields;
         }
 
-        private IEnumerable<GenericIndividual> SpinRoullete(List<GenericIndividual> joinInitRecombindeMutant, int numberElitism)
-        {
-            throw new NotImplementedException();
-        }
+        //private IEnumerable<GenericIndividual> SpinRoullete(List<GenericIndividual> joinInitRecombindeMutant, int numberElitism)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        private IEnumerable<GenericIndividual> GenerateElectism(List<GenericIndividual> joinInitRecombindeMutant, int numberElitism)
+        private IEnumerable<GenericIndividual> GenerateElectism(List<GenericIndividual> joinInitRecombindeMutant, int numberGenericIndividuals)
         {
-            throw new NotImplementedException();
+            return joinInitRecombindeMutant.OrderBy(el => el.Avaliar()).ToList().GetRange(0, numberGenericIndividuals);
         }
 
         private List<GenericIndividual> GenerateMutant(List<GenericIndividual> initGenericIndividuals)
