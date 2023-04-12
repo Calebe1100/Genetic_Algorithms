@@ -1,4 +1,5 @@
 ﻿using Project_IA.Interfaces;
+using Project_IA.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,29 +13,31 @@ namespace Project_IA.NQueens
         public double TaxMutation { get; set; } = 0.15;
         public double Avaliation { get; set; } = -1;
 
-        readonly Random Random = new Random();
-
+        Random Random = new Random();
         public NQueen(int numberQueens)
         {
-
             this.Genes = new List<int>(numberQueens);
             for (int i = 0; i < numberQueens; i++)
             {
-                this.Genes.Add(Random.Next(0, numberQueens));
-                Console.WriteLine(this.Genes[i]);
+                this.Genes.Add(RandomUtil.Instance.Next(0, numberQueens));
             }
+            Console.WriteLine("[{0}]", string.Join(", ", this.Genes));
             this.NumberQueens = numberQueens;
         }
 
         public double Avaliar()
         {
-            int numberColision = this.Genes.Count - this.Genes.Distinct().Count();
+            int numberColision = 0;
 
-            for (int i = 0; i < NumberQueens - 2; i++)
+            for (int i = 0; i < NumberQueens - 1; i++)
             {
-                for (int j =  i + 1; j < NumberQueens - 1; j++)
+                for (int j =  i + 1; j < NumberQueens; j++)
                 {
-                    if((Genes[j] - Math.Abs(i - j)) == Genes[i] || (Genes[j] + Math.Abs(j - i)) == Genes[i])
+                    if (Genes[i] == Genes[j] && i != j)
+                    {
+                        numberColision++;
+                    }
+                    if((Genes[j] - Math.Abs(j - i)) == Genes[i] || (Genes[j] + Math.Abs(j - i)) == Genes[i])
                     {
                         numberColision++;
                     }
@@ -49,10 +52,10 @@ namespace Project_IA.NQueens
         {
             NQueen mutateQueen = new NQueen(NumberQueens);
 
-            for (int i = 0; i < this.NumberQueens; i++)
+            for (int i = 0; i < this.NumberQueens - 1; i++)
             {
                 double generateTaxMutation = Random.NextDouble();
-                if (generateTaxMutation > TaxMutation)
+                if (generateTaxMutation < TaxMutation)
                 {
                     mutateQueen.Genes[i] = this.Genes[i];
                 }

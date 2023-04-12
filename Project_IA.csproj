@@ -42,6 +42,7 @@
     <Compile Include="Interfaces\IIndividual.cs" />
     <Compile Include="Implementation.cs" />
     <Compile Include="Entities\NQueens\NQueen.cs" />
+    <Compile Include="Utils\RandomUtil.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

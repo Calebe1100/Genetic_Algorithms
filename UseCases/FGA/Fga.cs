@@ -16,10 +16,12 @@ namespace Project_IA.FGA
 
             for (int i = 1; i < numberGenericIndividuals; i++)
             {
+                Console.WriteLine("----------------");
+                Console.WriteLine("Indivíduo: " + i);
                 initGenericIndividuals.Add(factory.GetNewIndividual());
             }
 
-            for (int i = 0; i < numberGeration; i++)
+            for (int i = 1; i <= numberGeration; i++)
             {
 
                 // Recombine
@@ -40,13 +42,11 @@ namespace Project_IA.FGA
                 //bestGenericIndividuals.AddRange(this.SpinRoullete(joinInitRecombindeMutant, numberGenericIndividuals - numberElitism));
 
                 initGenericIndividuals = bestGenericIndividuals;
-                if(bestGenericIndividuals.Any(bgi => bgi.Avaliar() < 3))
-                {
-                    Console.WriteLine("Best Individual:" + bestGenericIndividuals.Find(bgi => bgi.Avaliar() < 3));
-                }
+
+                Console.WriteLine("Geração: " + i);
             }
 
-            return factory.GetNewIndividual();
+            return initGenericIndividuals[0];
 
         }
         private List<GenericIndividual> GenerateRecombineByTwoParent(List<GenericIndividual> initGenericIndividuals)
@@ -80,7 +80,10 @@ namespace Project_IA.FGA
 
         private IEnumerable<GenericIndividual> GenerateElectism(List<GenericIndividual> joinInitRecombindeMutant, int numberGenericIndividuals)
         {
-            return joinInitRecombindeMutant.OrderBy(el => el.Avaliar()).ToList().GetRange(0, numberGenericIndividuals);
+            var orderAvaliators = joinInitRecombindeMutant.OrderBy(el => el.Avaliar()).ToList();
+
+            orderAvaliators = orderAvaliators.GetRange(0, numberGenericIndividuals);
+            return orderAvaliators;
         }
 
         private List<GenericIndividual> GenerateMutant(List<GenericIndividual> initGenericIndividuals)

@@ -13,19 +13,32 @@ namespace Project_IA
         }
         public static void Main(string[] args)
         {
-            double taxMutation = 0.15;
-            int numberPopulation = 20;
-            int numberElitism = 4;
-            int numberGeneration = 1000;
-            IIndividualFactory<NQueen> factory = new NQueensIndividualFactory(9);
+            NQueen bestIndividual;
+            int numberItarations = 0;
+            do
+            {
+                double taxMutation = 0.15;
+                int numberPopulation = 20;
+                int numberElitism = 4;
+                int numberGeneration = 1000;
+                IIndividualFactory<NQueen> factory = new NQueensIndividualFactory(4);
 
-            Fga<NQueen> fga = new Fga<NQueen>();
+                Fga<NQueen> fga = new Fga<NQueen>();
 
-            NQueen bestIndividual = fga.Execute(factory, numberPopulation, numberElitism, numberGeneration);
+                bestIndividual = fga.Execute(factory, numberPopulation, numberElitism, numberGeneration);
+                numberItarations++;
 
-            Console.WriteLine(bestIndividual.ToString());
-            var obj = new NQueen(20);
+            } while(bestIndividual.Avaliation != 0);
 
+
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine("Melhor Indivíduo:");
+                Console.WriteLine("[{0}]", string.Join(", ", bestIndividual.Genes), "Taxa de mutação: ",
+                    bestIndividual.TaxMutation, "Avaliação", bestIndividual.Avaliation);
+                Console.WriteLine("Taxa de mutação: " + bestIndividual.TaxMutation);
+                Console.WriteLine("Avaliação: " + bestIndividual.Avaliation);
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine("Numero de iterações até melhor indivíduo:" + numberItarations);
         }
     }
 } 
