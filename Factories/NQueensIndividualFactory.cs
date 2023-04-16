@@ -1,4 +1,6 @@
-﻿using Project_IA.NQueens;
+﻿using Project_IA.Interfaces;
+using Project_IA.NQueens;
+using System;
 
 namespace Project_IA.Factory
 {
@@ -9,9 +11,11 @@ namespace Project_IA.Factory
         {
             Count = numberQueens;
         }
-        public NQueen GetNewIndividual()
+        public NQueen GetNewIndividual(double taxMutation)
         {
-            return new NQueen(Count);
+            var nQuee = new NQueen(Count, taxMutation);
+            Console.WriteLine("[{0}]", string.Join(", ", nQuee.Genes));
+            return nQuee;   
         }
 
     }

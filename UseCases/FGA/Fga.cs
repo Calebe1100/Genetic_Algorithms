@@ -10,15 +10,16 @@ namespace Project_IA.FGA
     {
         public readonly Random Random = new Random();
 
-        public GenericIndividual Execute(IIndividualFactory<GenericIndividual> factory, int numberGenericIndividuals, int numberElitism, int numberGeration)
+        public GenericIndividual Execute(IIndividualFactory<GenericIndividual> factory, int numberGenericIndividuals, int numberElitism, int numberGeration, double taxMutation)
         {
             List<GenericIndividual> initGenericIndividuals = new List<GenericIndividual>(numberGenericIndividuals);
 
-            for (int i = 1; i < numberGenericIndividuals; i++)
+            for (int i = 1; i <= numberGenericIndividuals; i++)
             {
                 Console.WriteLine("----------------");
                 Console.WriteLine("Indivíduo: " + i);
-                initGenericIndividuals.Add(factory.GetNewIndividual());
+                var individual = factory.GetNewIndividual(taxMutation);
+                initGenericIndividuals.Add(individual);
             }
 
             for (int i = 1; i <= numberGeration; i++)
@@ -38,12 +39,13 @@ namespace Project_IA.FGA
 
                 //Generate bests
                 List<GenericIndividual> bestGenericIndividuals = new List<GenericIndividual>(numberGenericIndividuals);
-                bestGenericIndividuals.AddRange(this.GenerateElectism(joinInitRecombindeMutant, numberGenericIndividuals));
-                //bestGenericIndividuals.AddRange(this.SpinRoullete(joinInitRecombindeMutant, numberGenericIndividuals - numberElitism));
+                bestGenericIndividuals.AddRange(this.GenerateElectism(joinInitRecombindeMutant, numberElitism));
+                bestGenericIndividuals.AddRange(this.SpinRoullete(joinInitRecombindeMutant, numberGenericIndividuals - numberElitism));
 
                 initGenericIndividuals = bestGenericIndividuals;
 
                 Console.WriteLine("Geração: " + i);
+                Console.WriteLine("-------------------");
             }
 
             return initGenericIndividuals[0];
@@ -56,16 +58,16 @@ namespace Project_IA.FGA
 
             aux.AddRange(initGenericIndividuals);
 
-            for (int i = 0; i < aux.Count; i++)
+            for (int i = 0; i < initGenericIndividuals.Count / 2; i++)
             {
-                int randomIndiceOne = Random.Next(1, aux.Count);
-                int randomIndiceTwo = Random.Next(1, aux.Count);
+                int randomIndiceOne = Random.Next(0, aux.Count - 1);
+                int randomIndiceTwo = Random.Next(0, aux.Count - 1);
 
                 GenericIndividual parentOne = aux[randomIndiceOne];
                 GenericIndividual parentTwo = aux[randomIndiceTwo];
 
-                initGenericIndividuals.Remove(aux[randomIndiceOne]);
-                initGenericIndividuals.Remove(aux[randomIndiceTwo]);
+                aux.Remove(aux[randomIndiceOne]);
+                aux.Remove(aux[randomIndiceTwo]);
 
                 chields.AddRange(parentOne.Recombine(parentTwo));
 
@@ -73,16 +75,19 @@ namespace Project_IA.FGA
             return chields;
         }
 
-        //private IEnumerable<GenericIndividual> SpinRoullete(List<GenericIndividual> joinInitRecombindeMutant, int numberElitism)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        private IEnumerable<GenericIndividual> GenerateElectism(List<GenericIndividual> joinInitRecombindeMutant, int numberGenericIndividuals)
+        private IEnumerable<GenericIndividual> SpinRoullete(List<GenericIndividual> joinInitRecombindeMutant, int numberIndividuals)
         {
-            var orderAvaliators = joinInitRecombindeMutant.OrderBy(el => el.Avaliar()).ToList();
+            var invertedIndividuals = joinInitRecombindeMutant.FirstOrDefault().InvertedAvaliations(joinInitRecombindeMutant, numberIndividuals);
 
-            orderAvaliators = orderAvaliators.GetRange(0, numberGenericIndividuals);
+            return invertedIndividuals;
+        }
+
+        private IEnumerable<GenericIndividual> GenerateElectism(List<GenericIndividual> joinInitRecombindeMutant, int numberElitism)
+        {
+            joinInitRecombindeMutant.ForEach(el => el.Avaliar());
+
+            var orderAvaliators = joinInitRecombindeMutant.OrderBy(el => el.Avaliar()).ToList();
+            orderAvaliators = orderAvaliators.GetRange(0, numberElitism);
             return orderAvaliators;
         }
 

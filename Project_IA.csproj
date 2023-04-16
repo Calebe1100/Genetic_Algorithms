@@ -40,7 +40,7 @@
     <Compile Include="Factories\IIndividualFactory.cs" />
     <Compile Include="UseCases\FGA\Fga.cs" />
     <Compile Include="Interfaces\IIndividual.cs" />
-    <Compile Include="Implementation.cs" />
+    <Compile Include="Base.cs" />
     <Compile Include="Entities\NQueens\NQueen.cs" />
     <Compile Include="Utils\RandomUtil.cs" />
   </ItemGroup>
