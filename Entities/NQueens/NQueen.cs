@@ -28,9 +28,6 @@ namespace Project_IA.NQueens
 
         public double Avaliar()
         {
-            if (this.Avaliation == -1)
-            {
-
                 int numberColision = 0;
 
                 for (int i = 0; i < NumberQueens - 1; i++)
@@ -50,8 +47,6 @@ namespace Project_IA.NQueens
                 }
                 this.Avaliation = numberColision;
                 return numberColision;
-            }
-            return this.Avaliation;
         }
 
         NQueen IIndividual<NQueen>.Mutate()

@@ -9,37 +9,40 @@ namespace Project_IA
     {
         public static void Main()
         {
-            NQueen bestIndividual;
-            int numberItarations = 0;
+            var inputConsole = "";
             do
             {
-                double taxMutation = 0.40;
-                int numberPopulation = 20;
-                int numberElitism = 4;
-                int numberGeneration = 1000;
-                IIndividualFactory<NQueen> factory = new NQueensIndividualFactory(5);
+                try
+                {
+                Console.WriteLine("---------------Algoritmo Genético--------------------");
+                Console.WriteLine("Digite o número de rainhas: Ex: 4");
+                int numberQueens = int.Parse(Console.ReadLine());
+                Console.WriteLine("Digite a taxa de mutação (0 a 1) Ex 0.15:");
+                double taxMutation = double.Parse(Console.ReadLine());
+                Console.WriteLine("Digite o número da população: Ex: 20");
+                int numberPopulation = int.Parse(Console.ReadLine());
+                Console.WriteLine("Digite o número de elitismo: Ex: 4");
+                int numberElitism = int.Parse(Console.ReadLine());
+                Console.WriteLine("Digite o número de gerações: Ex: 1000");
+                int numberGeneration = int.Parse(Console.ReadLine());
+                IIndividualFactory<NQueen> factory = new NQueensIndividualFactory(numberQueens);
 
                 Fga<NQueen> fga = new Fga<NQueen>();
 
-                bestIndividual = fga.Execute(factory, numberPopulation, numberElitism, numberGeneration, taxMutation);
-                numberItarations++;
+                NQueen bestIndividual = fga.Execute(factory, numberPopulation, numberElitism, numberGeneration, taxMutation);
 
                 Console.WriteLine("-----------------------------------");
                 Console.WriteLine("Melhor Indivíduo do cíclo:");
                 Console.WriteLine("[{0}]", string.Join(", ", bestIndividual.Genes));
                 Console.WriteLine("Taxa de mutação: " + bestIndividual.TaxMutation);
                 Console.WriteLine("Avaliação: " + bestIndividual.Avaliation);
-
-            } while (bestIndividual.Avaliation > 0);
-
-
-            Console.WriteLine("-----------------------------------");
-            Console.WriteLine("Melhor Indivíduo:");
-            Console.WriteLine("[{0}]", string.Join(", ", bestIndividual.Genes));
-            Console.WriteLine("Taxa de mutação: " + bestIndividual.TaxMutation);
-            Console.WriteLine("Avaliação: " + bestIndividual.Avaliation);
-            Console.WriteLine("-----------------------------------");
-            Console.WriteLine("Numero de iterações até melhor indivíduo:" + numberItarations);
+                } catch(Exception e)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                }
+                Console.WriteLine("Pressione y para rodar novamente ou qualquer outra tecla pra sair para sair... ");
+                inputConsole = Console.ReadLine();
+            } while (inputConsole == "y");
         }
     }
 }
