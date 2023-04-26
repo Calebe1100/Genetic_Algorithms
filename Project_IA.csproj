@@ -36,12 +36,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\OptimizationFunctions\FunctionTemplate.cs" />
+    <Compile Include="Entities\OptimizationFunctions\RosenbrockInd.cs" />
+    <Compile Include="Entities\Template\IndividualTemplate.cs" />
+    <Compile Include="Factories\RosenbrockIndividualFactory.cs" />
     <Compile Include="Factories\NQueensIndividualFactory.cs" />
     <Compile Include="Factories\IIndividualFactory.cs" />
+    <Compile Include="FunctionsController.cs" />
     <Compile Include="UseCases\FGA\Fga.cs" />
     <Compile Include="Interfaces\IIndividual.cs" />
-    <Compile Include="Base.cs" />
+    <Compile Include="NQueenController.cs" />
     <Compile Include="Entities\NQueens\NQueen.cs" />
+    <Compile Include="Utils\GaussianRandom.cs" />
+    <Compile Include="Utils\OptimizationFunction.cs" />
     <Compile Include="Utils\RandomUtil.cs" />
   </ItemGroup>
   <ItemGroup />
