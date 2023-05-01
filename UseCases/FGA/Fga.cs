@@ -46,6 +46,7 @@ namespace Project_IA.FGA
 
                 Console.WriteLine("Geração: " + i);
                 Console.WriteLine("-------------------");
+                Console.WriteLine("Avaliação: " + initGenericIndividuals[0].Avaliar());
             }
 
             return initGenericIndividuals[0];

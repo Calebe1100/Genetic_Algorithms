@@ -1,4 +1,5 @@
-﻿using Project_IA.Factory;
+﻿using Project_IA.Entities.OptimizationFunctions;
+using Project_IA.Factory;
 using Project_IA.FGA;
 using Project_IA.NQueens;
 using Project_IA.OptimizationFunctions;
@@ -15,22 +16,16 @@ namespace Project_IA
             {
                 try
                 {
-                    Console.WriteLine("---------------Algoritmo Genético--------------------");
-                    Console.WriteLine("Digite o número de rainhas: Ex: 4");
-                    int numberQueens = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Digite a taxa de mutação (0 a 1) Ex 0.15:");
-                    double taxMutation = double.Parse(Console.ReadLine());
-                    Console.WriteLine("Digite o número da população: Ex: 20");
-                    int numberPopulation = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Digite o número de elitismo: Ex: 4");
-                    int numberElitism = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Digite o número de gerações: Ex: 1000");
-                    int numberGeneration = int.Parse(Console.ReadLine());
-                    IIndividualFactory<RosenbrockInd> factory = new RosenbrockIndividualFactory(numberQueens);
+                    int numberQueens = 10;
+                    double taxMutation = 0.15;
+                    int numberPopulation = 20;
+                    int numberElitism = 2;
+                    int numberGeneration = 2000;
+                    IIndividualFactory<FunctionTemplate> factory = new DixonPriceIndividualFactory(numberQueens);
 
-                    Fga<RosenbrockInd> fga = new Fga<RosenbrockInd>();
+                    Fga<FunctionTemplate> fga = new Fga<FunctionTemplate>();
 
-                    RosenbrockInd bestIndividual = fga.Execute(factory, numberPopulation, numberElitism, numberGeneration, taxMutation);
+                    FunctionTemplate bestIndividual = fga.Execute(factory, numberPopulation, numberElitism, numberGeneration, taxMutation);
 
                     Console.WriteLine("-----------------------------------");
                     Console.WriteLine("Melhor Indivíduo do cíclo:");

@@ -37,8 +37,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\OptimizationFunctions\FunctionTemplate.cs" />
+    <Compile Include="Entities\OptimizationFunctions\DixonPriceInd.cs" />
     <Compile Include="Entities\OptimizationFunctions\RosenbrockInd.cs" />
     <Compile Include="Entities\Template\IndividualTemplate.cs" />
+    <Compile Include="Factories\DixonPriceIndividualFactory.cs" />
     <Compile Include="Factories\RosenbrockIndividualFactory.cs" />
     <Compile Include="Factories\NQueensIndividualFactory.cs" />
     <Compile Include="Factories\IIndividualFactory.cs" />

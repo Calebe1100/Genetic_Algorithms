@@ -4,16 +4,16 @@ using System;
 
 namespace Project_IA.Factory
 {
-    public class RosenbrockIndividualFactory : IIndividualFactory<FunctionTemplate>
+    public class DixonPriceIndividualFactory : IIndividualFactory<FunctionTemplate>
     {
         public int Count { get; set; }
-        public RosenbrockIndividualFactory(int numberQueens)
+        public DixonPriceIndividualFactory(int numberQueens)
         {
             Count = numberQueens;
         }
         public FunctionTemplate GetNewIndividual(double taxMutation)
         {
-            var func = new RosenbrockInd(Count, taxMutation);
+            var func = new DixonPriceInd(Count, taxMutation);
             Console.WriteLine("[{0}]", string.Join(", ", func.Genes));
             return func;   
         }

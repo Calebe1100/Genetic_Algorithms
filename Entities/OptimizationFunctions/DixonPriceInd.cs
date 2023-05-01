@@ -5,25 +5,24 @@ using System.Collections.Generic;
 
 namespace Project_IA.OptimizationFunctions
 {
-    public class RosenbrockInd : FunctionTemplate
+    public class DixonPriceInd : FunctionTemplate
     {
-        public RosenbrockInd(int numberGenes, double taxMutation, bool? isCrossover = true) : base(numberGenes, taxMutation, isCrossover)
+        public DixonPriceInd(int numberGenes, double taxMutation, bool? isCrossover = true) : base(numberGenes, taxMutation, isCrossover)
         {
         }
 
         public override FunctionTemplate GetParentToRecobination()
         {
-            return new RosenbrockInd(NumberGenes, TaxMutation);
+            return new DixonPriceInd(NumberGenes, TaxMutation);
         }
 
         public override FunctionTemplate GetParentToMutation()
         {
-            return new RosenbrockInd(NumberGenes, TaxMutation);
+            return new DixonPriceInd(NumberGenes, TaxMutation);
         }
-
         public override double GetSumValueAvaliation(List<double> values)
         {
-            return OptimizationFunction.GetOtimizationRosenBrockValue(this.Genes);
+            return OptimizationFunction.GetOtimizationDixonPriceValue(this.Genes);
         }
     }
 }
