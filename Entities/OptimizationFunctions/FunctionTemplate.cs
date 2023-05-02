@@ -15,7 +15,7 @@ namespace Project_IA.Entities.OptimizationFunctions
         public int NumberGenes { get; set; }
         public bool IsCrossover { get; set; }
         public double TaxMutation { get; set; }
-        public double Avaliation { get; set; } = -1;
+        public double Avaliation { get; set; }
         public bool IsAvaliated { get; set; } = false;
 
         readonly Random Random;
@@ -40,11 +40,8 @@ namespace Project_IA.Entities.OptimizationFunctions
 
         public double Avaliar()
         {
-            if (!this.IsAvaliated)
-            {
                 this.Avaliation = GetSumValueAvaliation(this.Genes);
                 this.IsAvaliated = true;
-            }
             return this.Avaliation;
         }
 
